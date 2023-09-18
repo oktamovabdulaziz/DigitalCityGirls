@@ -1,5 +1,5 @@
-db.sqlite3
 .idea
+db.sqlite3
 venv
 main/migrations/**
 !main/migrations/__init__.py
