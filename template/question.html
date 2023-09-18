@@ -1,0 +1,41 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+			<main class="content">
+				<div class="container-fluid p-0">
+					<div class="row">
+						<div class="col-12 col-xl-12">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Question form </h5>
+								</div>
+								<div class="card-body">
+									<form  method="post" >
+										{% csrf_token %}
+										{{ form.media }}
+										{{ form.as_p }}
+
+									<div class="form-group row">
+										<button type="submit" class="btn btn-primary">Submit</button>
+                					</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+
+{% endblock content %}
+{% block js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+{% endblock js %}
