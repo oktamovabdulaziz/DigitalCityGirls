@@ -32,7 +32,7 @@
 											</tr>
 										</thead>
 										<tbody>
-										{% for i in question %}
+										{% for i in questions %}
 											<tr>
 												<td><a href="{% url 'edit' i.id %}"><strong><em>{{i.direction.name}}</em></strong></a></td>
 												<td><a href="{% url 'edit' i.id %}"><strong><em>{{ i.question|slice:":15"|safe }}</em></strong></a></td>

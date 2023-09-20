@@ -128,7 +128,16 @@ def user_answer_view(request):
     return render(request, "user-answer.html", context)
 
 
-def direction_questions(request, direction_id):
-    direction = get_object_or_404(Direction, pk=direction_id)
-    questions = Question.objects.filter(direction=direction)
-    return render(request, 'select-direction.html', {'direction': direction, 'questions': questions})
+def select_direction_view(request):
+    context = {
+        "direction": Direction.objects.all().order_by("-id"),
+        "questions": Question.objects.all(),
+    }
+    return render(request, "select-direction.html", context)
+
+
+def direction_by_question_view(request, pk):
+    direction = Direction.objects.get(id=pk)
+    question = Question.objects.all().filter(direction=direction)
+    return render(request, "direction-by-question.html", context={"directions": direction, "questions": question})
+

@@ -15,6 +15,7 @@ urlpatterns = [
     path("create-question/", create_question_view, name='create-question'),
     path("result-list/", result_list_view, name='result-list'),
     path("user-answer/", user_answer_view, name='user-answer'),
-    path('yo`nalishlar/<int:direction_id>/', direction_questions, name='select-direction'),
+    path('select-direction/', select_direction_view, name='select-direction'),
+    path("direction_by_question/<int:pk>/", direction_by_question_view, name='direction-by-question')
 
 ]
