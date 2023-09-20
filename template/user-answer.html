@@ -22,7 +22,7 @@
 										<tbody>
 										{% for i in user_answer %}
 											<tr>
-												<td>{{ i.result }}</td>
+												<td>{{ i.result.user }}</td>
 												<td>{{ i.question|slice:":15"|safe }}</td>
 												<td>{{ i.answer }}</td>
 												<td>{{ i.is_correct }}</td>

@@ -10,6 +10,7 @@ urlpatterns = [
      path("create_result/", create_result),
      path("is_logic_directions/", is_logic_directions),
      path('create-user-answer/', create_user_answer),
+     path("create-is-logic-question/", create_is_logic_question_view),
 ]
 
 

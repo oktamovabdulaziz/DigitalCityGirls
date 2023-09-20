@@ -38,7 +38,9 @@ class UserAnswerSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-
-
+class IsLogicQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IsLogicQuestion
+        fields = "__all__"
 
 

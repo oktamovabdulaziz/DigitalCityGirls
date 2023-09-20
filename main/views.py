@@ -82,3 +82,8 @@ def create_user_answer(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def create_is_logic_question_view(request):
+    is_logic = IsLogicQuestion.objects.all()
+    serializer = IsLogicQuestionSerializer(is_logic, many=True).data
+    return Response({"data": serializer})

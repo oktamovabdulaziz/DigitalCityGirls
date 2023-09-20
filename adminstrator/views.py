@@ -83,7 +83,7 @@ def question_list_view(request):
     return render(request, 'question-list.html', context)
 
 
-def create_question(request):
+def create_question_view(request):
     directions = Direction.objects.all()
 
     if request.method == 'POST':
@@ -95,7 +95,7 @@ def create_question(request):
     return render(request, 'question.html', {'directions': directions})
 
 
-def question_edit(request, pk):
+def question_edit_view(request, pk):
     obj = get_object_or_404(Question, id=pk)
 
     if request.method == 'GET':
@@ -110,16 +110,6 @@ def question_edit(request, pk):
         else:
             context = {'form': form, 'id': pk}
             return render(request, 'question.html', context)
-
-
-def result_view(request):
-    context = {
-        "result": Result.objects.all(),
-        "question": Question.objects.all(),
-        "user": User.objects.all(),
-
-    }
-    return render(request, 'result.html', context)
 
 
 def result_list_view(request):
@@ -138,5 +128,7 @@ def user_answer_view(request):
     return render(request, "user-answer.html", context)
 
 
-def calendar_view(request):
-    return render(request, 'empty.html')
+def direction_questions(request, direction_id):
+    direction = get_object_or_404(Direction, pk=direction_id)
+    questions = Question.objects.filter(direction=direction)
+    return render(request, 'select-direction.html', {'direction': direction, 'questions': questions})

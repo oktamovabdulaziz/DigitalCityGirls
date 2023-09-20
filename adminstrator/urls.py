@@ -11,9 +11,10 @@ urlpatterns = [
     path("create-digital/", create_digital_view, name='create-digital'),
     path("question/", question_view, name='question'),
     path("question-list/", question_list_view, name='question-list'),
-    path('question-edit/<int:pk>/', question_edit, name="edit"),
-    path("create-question/", create_question, name='create-question'),
+    path('question-edit/<int:pk>/', question_edit_view, name="edit"),
+    path("create-question/", create_question_view, name='create-question'),
     path("result-list/", result_list_view, name='result-list'),
     path("user-answer/", user_answer_view, name='user-answer'),
+    path('yo`nalishlar/<int:direction_id>/', direction_questions, name='select-direction'),
 
 ]
