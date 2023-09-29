@@ -15,15 +15,64 @@
 										{{ form.media }}
 										{{ form.as_p }}
 
-									<div class="form-group row">
-										<button type="submit" class="btn btn-primary">Submit</button>
-                					</div>
+
+										<div class="card">
+											<div class="card-header">
+											<!-- BEGIN success modal -->
+												<button type="button" class="btn btn-success" data-toggle="modal" data-target="#defaultModalSuccess">
+												  Save
+												</button>
+												<div class="modal fade" id="defaultModalSuccess" tabindex="-1" role="dialog" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title">Changing</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body m-3">
+																<p class="mb-0">Do you really wanna to save?</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+																<button type="Submit" class="btn btn-success">SAVE</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- END success modal -->
+												<!-- BEGIN danger modal -->
+												<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#defaultModalDanger">
+													Delete
+												</button>
+												<div class="modal fade" id="defaultModalDanger" tabindex="-1" role="dialog" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title">Changing</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body m-3">
+																<p class="mb-0">Do you really wanna to delete?</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+																<a href="{% url 'delete-question' questions.id %}" style="color: white" type="button" class="btn btn-danger">DELETE</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- END danger modal -->
+											</div>
+										</div>
 									</form>
 								</div>
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</main>
 

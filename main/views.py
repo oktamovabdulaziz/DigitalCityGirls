@@ -7,6 +7,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 
+# This is Get Digital view
 @api_view(["GET"])
 def digital_view(request):
     digit = Digital.objects.all()
@@ -14,6 +15,7 @@ def digital_view(request):
     return Response({"data": data})
 
 
+# This is Get Direction view
 @api_view(["GET"])
 def direction_view(request):
     direction = Direction.objects.all()
@@ -21,6 +23,7 @@ def direction_view(request):
     return Response({"data": data})
 
 
+# This is Get IsLogicDirection view
 @api_view(['GET'])
 def is_logic_directions(request):
     is_logic_direction = Direction.objects.filter(is_logic=True)
@@ -28,6 +31,7 @@ def is_logic_directions(request):
     return Response(serializer.data)
 
 
+# This is Get test view
 @api_view(['GET'])
 def get_test(request):
     try:
@@ -40,6 +44,7 @@ def get_test(request):
         return Response({"success": f"{err}"})
 
 
+# This is Create User view
 @api_view(['POST'])
 def create_user(request):
     if request.method == 'POST':
@@ -50,6 +55,7 @@ def create_user(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# This is Get Question view
 @api_view(['GET'])
 def get_question_view(request):
     query = Question.objects.all()
@@ -57,6 +63,7 @@ def get_question_view(request):
     return Response({"data": data})
 
 
+# This is Create Result view
 @api_view(['GET', 'POST'])
 def create_result(request):
     if request.method == 'GET':
@@ -72,6 +79,7 @@ def create_result(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# This is Create UserAnswer view
 @api_view(['POST'])
 def create_user_answer(request):
     if request.method == 'POST':
@@ -82,6 +90,7 @@ def create_user_answer(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# This is Get IsLogicQuestion view
 @api_view(['GET'])
 def create_is_logic_question_view(request):
     is_logic = IsLogicQuestion.objects.all()
