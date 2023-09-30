@@ -3,7 +3,9 @@ from adminstrator.views import *
 
 
 urlpatterns = [
-    path("sign-in/", login_view, name='sign-in'),
+    path("", login_view, name='login'),
+    path("logout/", logout_view, name='logout'),
+    path("reset-password/", reset_password_view, name='reset-password'),
     path("index/", index_view, name='index'),
     path('direction/', direction_view, name="direction"),
     path('create-direction/', create_direction_view, name="create-direction"),
