@@ -3,6 +3,49 @@ from django.utils.dateparse import parse_duration
 from main.models import *
 from adminstrator.forms import QuestionForm, IsLogicQuestionForm
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
+# from django.contrib.auth.models import User
+
+
+# def PagenatorPage(List, num, request):
+#     paginator = Paginator(List, num)
+#     pages = request.GET.get("page")
+#     try:
+#         list = paginator.page(pages)
+#     except PageNotAnInteger:
+#         list = paginator.page(1)
+#     except EmptyPage:
+#         list = paginator.page(paginator.num_pages)
+#     return list
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("index")
+        else:
+            messages.error(request, "Login yoki parol xato!")
+            return redirect("login")
+    return render(request, 'pages-sign-in.html')
+
+#
+# def logout_view(request):
+#     logout(request)
+#     return redirect('index')
+#
+#
+# def page_404_view(request):
+#     return render(request, "pages-404.html")
+
+
+# def sig_in_view(request):
+#     return render(request, 'pages-sign-in.html')
 
 
 #  This is Home page view
@@ -91,11 +134,11 @@ def question_edit_view(request, pk):
         context = {'form': QuestionForm(instance=obj), 'id': pk}
         return render(request, 'question.html', context)
 
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = QuestionForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
-            return redirect('create-question')
+            return redirect('direction-by-question', obj.direction.id)
         else:
             context = {'form': form, 'id': pk}
             return render(request, 'question.html', context)
@@ -119,10 +162,18 @@ def user_answer_view(request):
     return render(request, "user-answer.html", context)
 
 
+# This is IsLogic page
+def is_logic_view(request):
+    context = {
+        "is_logic": IsLogicQuestion.objects.all(),
+    }
+    return render(request, "is-logic-question.html", context)
+
+
 # This is  direction selection
 def select_direction_view(request):
     context = {
-        "direction": Direction.objects.all().order_by("id"),
+        "direction": Direction.objects.all(),
         "questions": Question.objects.all(),
     }
     return render(request, "select-direction.html", context)
@@ -147,7 +198,7 @@ def create_question_view(request, pk):
 
     }
     if request.method == 'GET':
-        return render(request, 'question.html', context)
+        return render(request, 'create-question.html', context)
 
     if request.method == 'POST':
         a = Question.objects.create(
@@ -160,6 +211,10 @@ def create_question_view(request, pk):
             answer_correct=request.POST["answer_correct"],
 
           )
+        IsLogicQuestion.objects.create(
+            direction=Direction.objects.get(id=pk),
+            is_logic_question=request.POST["is_logic_question"],
+        )
 
     return redirect("direction-by-question", pk)
 

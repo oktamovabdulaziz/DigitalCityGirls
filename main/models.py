@@ -52,7 +52,7 @@ class Question(models.Model):
 
 class IsLogicQuestion(models.Model):
     direction = models.ForeignKey(Direction, on_delete=models.CASCADE, null=False)
-    is_logic_question = models.CharField(max_length=255)
+    is_logic_question = RichTextUploadingField()
 
     def __str__(self):
         return self.is_logic_question
@@ -67,12 +67,12 @@ class Result(models.Model):
     percentage = models.FloatField()
 
     def __str__(self):
-        return self.user
+        return f"{self.user}"
 
 
 class UserAnswer(models.Model):
     result = models.ForeignKey(Result, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_results')
+    question = models.ForeignKey(IsLogicQuestion, on_delete=models.CASCADE, related_name='question_results')
     answer = models.CharField(max_length=255)
     is_correct = models.BooleanField()
 

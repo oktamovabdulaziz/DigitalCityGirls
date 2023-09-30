@@ -13,19 +13,15 @@
 									<table id="datatables-basic" class="table table-striped" style="width:100%">
 										<thead>
 											<tr>
-												<th>Result</th>
-												<th>Question</th>
-												<th>Answer</th>
-												<th>Is Correct</th>
+												<th>Direction</th>
+												<th>Is Logic Question</th>
 											</tr>
 										</thead>
 										<tbody>
-										{% for i in user_answer %}
+										{% for i in is_logic %}
 											<tr>
-												<td>{{ i.result }}</td>
-												<td>{{ i.question|slice:":15"|safe }}</td>
-												<td>{{ i.answer }}</td>
-												<td>{{ i.is_correct }}</td>
+												<td>{{ i.direction }}</td>
+												<td>{{ i.is_logic_question|slice:":15"|safe }}</td>
 											</tr>
 										{% endfor %}
 										</tbody>

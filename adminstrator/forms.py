@@ -13,4 +13,4 @@ class IsLogicQuestionForm(ModelForm):
     class Meta:
         model = IsLogicQuestion
         fields = "__all__"
-
+        exclude = ['direction']
