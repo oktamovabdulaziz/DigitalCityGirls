@@ -39,12 +39,6 @@ def login_view(request):
     return render(request, 'pages-sign-in.html')
 
 
-def login_a_view(request):
-    context = {
-        "digital": Digital.objects.last(),
-    }
-    return render(request, 'pages-sign-in.html', context)
-
 def logout_view(request):
     logout(request)
     return redirect('login')
