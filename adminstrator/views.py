@@ -10,16 +10,16 @@ from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
 
 
-# def PagenatorPage(List, num, request):
-#     paginator = Paginator(List, num)
-#     pages = request.GET.get("page")
-#     try:
-#         list = paginator.page(pages)
-#     except PageNotAnInteger:
-#         list = paginator.page(1)
-#     except EmptyPage:
-#         list = paginator.page(paginator.num_pages)
-#     return list
+def PagenatorPage(List, num, request):
+    paginator = Paginator(List, num)
+    pages = request.GET.get("page")
+    try:
+        list = paginator.page(pages)
+    except PageNotAnInteger:
+        list = paginator.page(1)
+    except EmptyPage:
+        list = paginator.page(paginator.num_pages)
+    return list
 
 
 def login_view(request):
@@ -39,21 +39,24 @@ def login_view(request):
     return render(request, 'pages-sign-in.html')
 
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('login')
 
 
+@login_required
 def reset_password_view(request):
     return render(request, 'pages-reset-password.html')
 
-#
-# def page_404_view(request):
-#     return render(request, "pages-404.html")
+
+@login_required
+def page_404_view(request):
+    return render(request, "pages-404.html")
 
 
 #  This is Home page view
-# @login_required
+@login_required
 def index_view(request):
     form = QuestionForm
     current_user = request.user
@@ -66,6 +69,7 @@ def index_view(request):
 
 
 # This is Directions page view
+@login_required
 def direction_view(request):
     context = {
         "direction": Direction.objects.all(),
@@ -74,6 +78,7 @@ def direction_view(request):
 
 
 # This is Create direction page view
+@login_required
 def create_direction_view(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -92,14 +97,16 @@ def create_direction_view(request):
 
 
 # This is Users list  page view
+@login_required
 def user_view(request):
     context = {
-        "user": User.objects.all(),
-    }
+            "user": User.objects.all(),
+        }
     return render(request, "user.html", context)
 
 
 # This id Digital page view
+@login_required
 def digital_view(request):
     context = {
         "digital": Digital.objects.all(),
@@ -108,6 +115,7 @@ def digital_view(request):
 
 
 # This is Create Digital view
+@login_required
 def create_digital_view(request):
     if request.method == 'POST':
         logo = request.FILES.get("logo")
@@ -123,6 +131,7 @@ def create_digital_view(request):
 
 
 # This is Question page view
+@login_required
 def question_view(request):
     form = QuestionForm
     context = {
@@ -133,6 +142,7 @@ def question_view(request):
 
 
 # This is  edit the question here
+@login_required
 def question_edit_view(request, pk):
     obj = get_object_or_404(Question, id=pk)
 
@@ -151,6 +161,7 @@ def question_edit_view(request, pk):
 
 
 # This is  outputs the result list
+@login_required
 def result_list_view(request):
     context = {
         "result": Result.objects.all(),
@@ -161,6 +172,7 @@ def result_list_view(request):
 
 
 # This is  outputs the UserAnswer
+@login_required
 def user_answer_view(request):
     context = {
         "user_answer": UserAnswer.objects.all(),
@@ -169,6 +181,7 @@ def user_answer_view(request):
 
 
 # This is IsLogic page
+@login_required
 def is_logic_view(request):
     context = {
         "is_logic": IsLogicQuestion.objects.all(),
@@ -177,6 +190,7 @@ def is_logic_view(request):
 
 
 # This is  direction selection
+@login_required
 def select_direction_view(request):
     context = {
         "direction": Direction.objects.all(),
@@ -186,13 +200,18 @@ def select_direction_view(request):
 
 
 # This is  get questions related to direction
+@login_required
 def direction_by_question_view(request, pk):
     selected_direction = Direction.objects.get(id=pk)
     questions_in_selected_direction = Question.objects.filter(direction=selected_direction)
-    return render(request, 'direction-by-question.html', context={'questions': questions_in_selected_direction, "dir": pk})
+    paginator = PagenatorPage(questions_in_selected_direction, 3, request)
+    return render(request, 'direction-by-question.html', context={'questions': paginator, "dir": pk})
+
+
 
 
 # This is  create question page view
+@login_required
 def create_question_view(request, pk):
     form = QuestionForm
     formlg = IsLogicQuestionForm
@@ -225,6 +244,7 @@ def create_question_view(request, pk):
     return redirect("direction-by-question", pk)
 
 
+@login_required
 def save_question_view(request, pk):
     question = Question.objects.get(id=pk)
     if question.is_valid():
@@ -232,6 +252,7 @@ def save_question_view(request, pk):
     return redirect("direction-by-question")
 
 
+@login_required
 def delete_question_view(request, pk):
     questions = Question.objects.get(id=pk).direction.id
     Question.objects.get(id=pk).delete()

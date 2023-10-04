@@ -76,6 +76,5 @@ class UserAnswer(models.Model):
     result = models.ForeignKey(Result, on_delete=models.CASCADE)
     question = models.ForeignKey(IsLogicQuestion, on_delete=models.CASCADE, related_name='question_results')
     answer = models.CharField(max_length=255)
-    is_correct = models.BooleanField()
 
 

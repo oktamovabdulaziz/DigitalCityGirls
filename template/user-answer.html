@@ -16,20 +16,19 @@
 												<th>Result</th>
 												<th>Question</th>
 												<th>Answer</th>
-												<th>Is Correct</th>
 											</tr>
 										</thead>
 										<tbody>
 										{% for i in user_answer %}
 											<tr>
 												<td>{{ i.result }}</td>
-												<td>{{ i.question|slice:":15"|safe }}</td>
+												<td>{{ i.question }}</td>
 												<td>{{ i.answer }}</td>
-												<td>{{ i.is_correct }}</td>
 											</tr>
 										{% endfor %}
 										</tbody>
 									</table>
+
 								</div>
 							</div>
 						</div>

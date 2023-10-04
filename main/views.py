@@ -25,7 +25,7 @@ def direction_view(request):
 
 # This is Get IsLogicDirection view
 @api_view(['GET'])
-def is_logic_directions(request):
+def is_logic_directions_view(request):
     is_logic_direction = Direction.objects.filter(is_logic=True)
     serializer = DirectionSerializer(is_logic_direction, many=True)
     return Response(serializer.data)
@@ -33,7 +33,7 @@ def is_logic_directions(request):
 
 # This is Get test view
 @api_view(['GET'])
-def get_test(request):
+def get_test_view(request):
     try:
         user_id = request.GET["user_id"]
         user = User.objects.get(id=user_id)
@@ -46,7 +46,7 @@ def get_test(request):
 
 # This is Create User view
 @api_view(['POST'])
-def create_user(request):
+def create_user_view(request):
     if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -65,7 +65,7 @@ def get_question_view(request):
 
 # This is Create Result view
 @api_view(['GET', 'POST'])
-def create_result(request):
+def create_result_view(request):
     if request.method == 'GET':
         results = Result.objects.all()
         serializer = ResultSerializer(results, many=True)
@@ -81,7 +81,7 @@ def create_result(request):
 
 # This is Create UserAnswer view
 @api_view(['POST'])
-def create_user_answer(request):
+def create_user_answer_view(request):
     if request.method == 'POST':
         serializer = UserAnswerSerializer(data=request.data)
         if serializer.is_valid():
@@ -92,7 +92,15 @@ def create_user_answer(request):
 
 # This is Get IsLogicQuestion view
 @api_view(['GET'])
-def create_is_logic_question_view(request):
-    is_logic = IsLogicQuestion.objects.all()
-    serializer = IsLogicQuestionSerializer(is_logic, many=True).data
-    return Response({"data": serializer})
+def get_is_logic_questions_view(request, direction_id):
+    try:
+        direction = Direction.objects.get(id=direction_id)
+    except Direction.DoesNotExist:
+        return Response({'message': 'Direction not found'}, status=404)
+
+    if direction.is_logic:
+        is_logic_questions = IsLogicQuestion.objects.filter(direction=direction)
+        serializer = IsLogicQuestionSerializer(is_logic_questions, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({'message': 'This direction does not have logic questions'}, status=400)
