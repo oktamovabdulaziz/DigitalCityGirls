@@ -1,5 +1,6 @@
 .idea
 db.sqlite3
 venv
+media/
 main/migrations/**
 !main/migrations/__init__.py
