@@ -7,6 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 # from django.contrib.auth.models import User
 
 
@@ -45,7 +46,6 @@ def logout_view(request):
     return redirect('login')
 
 
-@login_required
 def reset_password_view(request):
     return render(request, 'pages-reset-password.html')
 
@@ -206,8 +206,6 @@ def direction_by_question_view(request, pk):
     questions_in_selected_direction = Question.objects.filter(direction=selected_direction)
     paginator = PagenatorPage(questions_in_selected_direction, 3, request)
     return render(request, 'direction-by-question.html', context={'questions': paginator, "dir": pk})
-
-
 
 
 # This is  create question page view

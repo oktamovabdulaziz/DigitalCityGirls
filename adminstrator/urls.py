@@ -1,4 +1,4 @@
-from django.urls import path, re_path, include
+from django.urls import path
 from adminstrator.views import *
 
 
@@ -6,6 +6,7 @@ urlpatterns = [
     path("", login_view, name='login'),
     path("logout/", logout_view, name='logout'),
     path("reset-password/", reset_password_view, name='reset-password'),
+    path("page-404/", page_404_view, name='page-404'),
     path("index/", index_view, name='index'),
     path('direction/', direction_view, name="direction"),
     path('create-direction/', create_direction_view, name="create-direction"),
