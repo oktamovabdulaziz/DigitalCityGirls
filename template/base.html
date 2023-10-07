@@ -19,9 +19,16 @@
 	<!-- <link href="css/modern.css" rel="stylesheet"> -->
 	<!-- BEGIN SETTINGS -->
 	<!-- You can remove this after picking a style -->
+
 	<style>
 		body {
 			opacity: 0;
+		}
+		footer {
+				padding: 10px; /* Yopiq chegarani o'lchamini belgilash */
+				position: fixed; /* Pastga yopishni belgilash */
+				bottom: 0; /* Pastga to'g'rilash */
+				width: 100%; /* To'la sahifa bo'yi bo'ylab olinishi */
 		}
 	</style>
 	<script src="js\settings.js"></script>
@@ -112,8 +119,8 @@
               				</a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                				<span class="text-dark">Admin</span>
-							</a>
+                				<img src="{% static 'img\photos\salom-2.png' %}" class="avatar img-fluid rounded-circle mr-1" alt=""> <span class="text-dark">Admin</span>
+              				</a>
 							<div class="dropdown-menu dropdown-menu-right">
 								<a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
 							</div>
@@ -143,6 +150,7 @@
 									<a class="text-muted" href="#">Terms of Service</a>
 								</li>
 							</ul>
+
 						</div>
 						<div class="col-6 text-right">
 							<p class="mb-0">
