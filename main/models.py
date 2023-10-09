@@ -51,6 +51,13 @@ class Question(models.Model):
     def __str__(self):
         return self.question
 
+    def save(self, *args, **kwargs):
+        q = Question.objects.filter(direction=self.direction)
+        if q.count() < self.direction.question_count and q.count() != self.direction.question_count:
+            return super().save(*args, **kwargs)
+        else:
+            raise SystemError(f"Savol qo'shish chegaralangan! maksimum {self.direction.question_count}!")
+
 
 class IsLogicQuestion(models.Model):
     direction = models.ForeignKey(Direction, on_delete=models.CASCADE, null=False)
